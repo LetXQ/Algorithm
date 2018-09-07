@@ -140,6 +140,11 @@ public:
         }
     }
 
+    static void MergeSort(int_vec_t& data_vec)
+    {
+        MergeSort(0, (int)data_vec.size() - 1, data_vec);
+    }
+
 private:
     static void QuickSort(int left, int right, int_vec_t& data_vec)
     {
@@ -157,13 +162,54 @@ private:
 
             // 从左往右找到第一个比基准值大的数，交换位置
             while (i < j && data_vec[i] <= tmp) {
-               ++i;
+                ++i;
             }
             CommonSwap<int>(data_vec[j], data_vec[i]);
         }
         data_vec[i] = tmp;
         QuickSort(left, i-1, data_vec);
         QuickSort(i+1, right,data_vec);
+    }
+
+    static void MergeSort(int first, int last, int_vec_t& data)
+    {
+        if (first < last)
+        {
+            int mid = (last + first) / 2;
+            std::cout << "first: " << first << ", last: " << last << ", mid: " << mid << std::endl;
+            MergeSort(first, mid, data);
+            MergeSort(mid+1, last, data);
+            MergeSort(first, last, mid, data);
+        }
+    }
+
+    static void MergeSort(int first, int last, int mid,  int_vec_t& data_vec)
+    {
+        int i = first, j = mid + 1;
+        std::vector<int> tmp_vec;
+
+        while (i <= mid && j <= last) {
+            if (data_vec[i] <= data_vec[j])
+                tmp_vec.push_back(data_vec[i++]);
+            else
+                tmp_vec.push_back(data_vec[j++]);
+        }
+
+        while (i <= mid) {
+            tmp_vec.push_back(data_vec[i++]);
+        }
+
+        while (j <= last) {
+            tmp_vec.push_back(data_vec[j++]);
+        }
+
+        for (i = 0; i < (int)tmp_vec.size(); ++i)
+        {
+            data_vec[first + i] = tmp_vec[i];
+        }
+
+        std::cout << "first: " << first << ": ";
+        CommonFunc::PrintIntVec(data_vec);
     }
 };
 
