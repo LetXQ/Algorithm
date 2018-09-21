@@ -40,11 +40,19 @@ void GetCartPro(const int_vec_vec_t& src_data, int_vec_vec_t& res_data, int laye
     }
 }
 
-void RecursionCombine(int_vec_t &data,
+/*
+ * 递归求组合
+ *
+ * @param : data 原始数组
+ * @param : startIndex 起始循环索引
+ * @param : m 要取个数
+ * @param : arr 具体一组组合
+ * @param : res_data 所有组合的集合
+*/
+void RecursionCombine(const int_vec_t &data,
                        int startIndex,
                        int m,
                        int_vec_t& arr,
-                       int arrIndex,
                        int_vec_vec_t& res_data)
 {
     int src_size = data.size();
@@ -65,7 +73,7 @@ void RecursionCombine(int_vec_t &data,
     {
         int_vec_t tmp_vec{arr};
         tmp_vec.push_back(data[i]);
-        RecursionCombine(data,  i+1, m-1, tmp_vec, arrIndex+1, res_data);
+        RecursionCombine(data,  i+1, m-1, tmp_vec, res_data);
     }
 }
 
@@ -84,7 +92,7 @@ void  OutputCombine(int n, int m)
         src_tmp.push_back(i);
     }
 
-    RecursionCombine(src_tmp, 0, m, tmp_vec, 0, res_data);
+    RecursionCombine(src_tmp, 0, m, tmp_vec, res_data);
     std::cout << "Total Size: " << res_data.size() << std::endl;
 }
 void OutputAllCombine(int n)
