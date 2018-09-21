@@ -24,8 +24,17 @@ void TestGetCartPro()
         std::cout << std::endl;
     }
 }
+
+void TestCombine()
+{
+    AlgorithmFunc::OutputCombine(4, 2);
+    std::cout << "\n---------------\n";
+    AlgorithmFunc::OutputAllCombine(4);
+}
+
 int main(void)
 {
-    TestGetCartPro();
+    //TestGetCartPro();
+    TestCombine();
     return 0;
 }
