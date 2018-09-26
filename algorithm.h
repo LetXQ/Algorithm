@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <array>
 
 using int_vec_t = std::vector<int>;
 using int_vec_vec_t = std::vector<int_vec_t>;
@@ -77,6 +78,24 @@ void RecursionCombine(const int_vec_t &data,
     }
 }
 
+void RecursionCombine(int* arr, int arr_len, int m, int* out, int out_len)
+{
+    if(m == 0)
+    {
+        for (int j = 0; j < arr_len; j++)
+            std::cout << out[j] << " ";
+        std::cout << std::endl;
+
+        return;
+    }
+
+    for (int i = arr_len; i >= m; --i)	//从后往前依次选定一个
+    {
+        out[m-1] = arr[i-1]; //选定一个后
+        RecursionCombine(arr,i-1,m-1,out,out_len); // 从前i-1个里面选取m-1个进行递归
+    }
+}
+
 /*
  * 输出从n个数中取m个数的组合
  * 所有组合个数应该是Cmn = (n!) / (m!) * ((n-m)!)
@@ -105,6 +124,11 @@ void OutputAllCombine(int n)
             OutputCombine(n, j);
         }
     }
+}
+
+void OutputAllCombine(int* arr, int nLen, int m)
+{
+    auto tmp_arr = new int[m];
 }
 
 void GetCombine(int cur_size, int_vec_vec_t& in_vec)
