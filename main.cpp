@@ -4,6 +4,10 @@
 
 #include "algorithm.h"
 #include "list/list.h"
+#include "list/stack.h"
+#include "list/queue.h"
+#include "list/character.h"
+
 using namespace std;
 
 void TestGetCartPro()
@@ -49,22 +53,90 @@ void TestList()
     ret = list.FindDataByPos(2, tmp_p);
     if (0 == ret)
     {
-        std::cout << "Find pos2:  " << tmp_p.Id << std::endl;
+        std::cout << "FindDataByPos pos2:  " << tmp_p.Id << std::endl;
     }
     else
     {
-        std::cout << "Find pos2: not found " << std::endl;
+        std::cout << "FindDataByPos pos2: not found " << std::endl;
     }
 
     ret = list.InsertByPos(2, d7);
-    std::cout << "Ret: " << ret << std::endl;
+    std::cout << "InsertByPos Ret: " << ret << std::endl;
     list.PrintElems();
-    list.Destroy();
+    ret = list.DeleteByPos(2, tmp_p);
+    std::cout << "DeleteByPos Ret: " << ret << ", Id: " << tmp_p.Id <<  std::endl;
+}
+
+void TestStack()
+{
+    Stack<int> test;
+
+    int ret = test.Push(10);
+    ret = test.Push(11);
+    std::cout << "Push Ret: " << ret << ", size: " << test.Size() << std::endl;
+    int tmp = -1;
+    ret = test.Pop(tmp);
+    std::cout << "Pop Ret: " << ret << ", size: " << test.Size() << ", data: " << tmp << std::endl;
+}
+
+void TestQueue()
+{
+    Queue<int> test;
+    int ret = 0;
+    for (int i = 0; i < 15; ++i)
+    {
+        ret = test.EnQueue(i);
+        if (ret != 0)
+            break;
+    }
+    std::cout << "Enqueue ret: " << ret << ", size: " << test.Size() << std::endl;
+
+    int tmp = -1;
+    ret = test.DeQueue(tmp);
+    std::cout << "DeQueue ret: " << ret << ", size: " << test.Size()
+              << ", data: " << tmp << std::endl;
+}
+
+void TestString()
+{
+    char str1[] = "helloworld";
+    char str2[] = "wor";
+    char str3[] = "hellowored";
+    char str4[20] = {0};
+    int ret = MyString::StrCmp(str1, strlen(str1), str2, strlen(str2));
+    std::cout << "Ret: " << ret << std::endl;
+    ret = MyString::StrCmp(str1, str2);
+    std::cout << "Ret: " << ret << std::endl;
+
+    ret = MyString::StrCompare(str1, str3);
+    std::cout << "Ret: " << ret << std::endl;
+
+    int d_len = sizeof(str4)/sizeof(char);
+    if (d_len >= strlen(str1) + 1)
+    {
+        char* dst = MyString::StrCpy(str1, str4);
+        std::cout << "StrCpy : " << dst << std::endl;
+    }
+    else
+    {
+        std::cout << "StrCpy dest not enough, need len: " << strlen(str1) + 1 << std::endl;
+    }
+
+    char* p_ret = MyString::StrOverlapCpy(str1, str1+2);
+    std::cout << "StrOverlapCpy: " << p_ret << std::endl;
+    std::cout << "StrOverlapCpy: " << str1 << ", len: " << strlen(str1) << std::endl;
+
+    char str5[] = "123456";
+    p_ret = MyString::StrNCpy(str5, 2, str5+2);
+    std::cout << "StrNCpy: " << p_ret << "len: " << strlen(str5 + 2) <<std::endl;
 }
 
 int main(void)
 {
-    TestList();
+    TestString();
+    //TestQueue();
+    //TestStack();
+    //TestList();
     //TestGetCartPro();
     //TestCombine();
     return 0;

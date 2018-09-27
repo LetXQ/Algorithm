@@ -1,12 +1,7 @@
 #ifndef LIST_H_
 #define LIST_H_
-#include <string.h>
+#include "com_def.h"
 
-enum error_no
-{
-    ERR_NEW_FAILED = 100,
-    ERR_POS_INVALID = 101,
-};
 struct Data
 {
     Data(int _id = 0, const std::string& _name = "")
@@ -20,11 +15,13 @@ struct Node
 {
     ~Node()
     {
-        if (p_next)
-        {
-            delete p_next;
-            p_next = nullptr;
-        }
+        std::cout << "Del id: " << data.Id << std::endl;
+        p_next = nullptr;
+//        if (p_next)
+//        {
+//            delete p_next;
+//            p_next = nullptr;
+//        }
     }
 
     Data data;
@@ -36,23 +33,25 @@ class List
 public:
     ~List()
     {
+        std::cout << "deconstruct\n";
         this->Destroy();
     }
     void Destroy()
     {
         // Node的析构函数做了delete next操作，这里只需要delete头结点
-        // 就能释放整个链表，如果Node没有析构函数，需要循环整个链表delete操作
-       delete m_pHead;
-        m_pHead = NULL;
+        // 就能释放整个链表，但这就导致这种链表不能做删除节点操作
+        // 如果Node没有析构函数，需要循环整个链表delete操作
+//       delete m_pHead;
+//        m_pHead = NULL;
 
-            // 循环整个链表释放内存
-//        Node* p = nullptr;
-//        while (m_pHead) {
-//            p = m_pHead->p_next;
-//            delete m_pHead;
-//            m_pHead = p;
-//        }
-//        m_pHead = nullptr;
+        // 循环整个链表释放内存
+        Node* p = nullptr;
+        while (m_pHead) {
+            p = m_pHead->p_next;
+            delete m_pHead;
+            m_pHead = p;
+        }
+        m_pHead = nullptr;
     }
 
     int HeadInsert(const Data& data)
@@ -122,6 +121,31 @@ public:
                 new_elem->p_next = tmp->p_next;
                 tmp->p_next = new_elem;
             }
+        }
+        return 0;
+    }
+
+    int DeleteByPos(int pos, Data& del_data)
+    {
+        if (pos <= 0 || pos > m_iSize)
+            return ERR_POS_INVALID;
+        if (1 == pos)
+        {
+            Node* tmp = m_pHead;
+            del_data = tmp->data;
+            m_pHead = m_pHead->p_next;
+            delete tmp;
+            tmp = nullptr;
+        }
+        else
+        {
+            Node* pre = this->FindNodeByPos(pos -1);
+            if (!pre)
+                return ERR_POS_INVALID;
+            Node* tmp = pre->p_next;
+            pre->p_next = tmp->p_next;
+            delete tmp;
+            tmp = nullptr;
         }
         return 0;
     }
