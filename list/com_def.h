@@ -3,6 +3,8 @@
 #include <iostream>
 #include <string.h>
 #include <cassert>
+#include <vector>
+#include <queue>
 
 using namespace std;
 
@@ -18,3 +20,10 @@ enum error_no
     ERR_QUEUE_EMPTY = 104,
     ERR_QUEUE_FULL = 105,
 };
+
+#define SAVE_DELETE(x) { \
+        if (x) { \
+            delete x; \
+            x = nullptr; \
+        } \
+    }

@@ -7,6 +7,7 @@
 #include "list/stack.h"
 #include "list/queue.h"
 #include "list/character.h"
+#include "list/btree.h"
 
 using namespace std;
 
@@ -111,7 +112,7 @@ void TestString()
     ret = MyString::StrCompare(str1, str3);
     std::cout << "Ret: " << ret << std::endl;
 
-    int d_len = sizeof(str4)/sizeof(char);
+    size_t d_len = sizeof(str4)/sizeof(char);
     if (d_len >= strlen(str1) + 1)
     {
         char* dst = MyString::StrCpy(str1, str4);
@@ -131,9 +132,29 @@ void TestString()
     std::cout << "StrNCpy: " << p_ret << "len: " << strlen(str5 + 2) <<std::endl;
 }
 
+void TestBtree()
+{
+    BTree btree;
+    BData d1(1, "A"), d2(2, "B"), d3(3, "C"), d4(4, "D"), d5(5, "E");
+    std::vector<BData> d_vec{d3,d1,d2,d4, d5};
+    bool ret = btree.AddItem(d_vec);
+    std::cout <<std::endl <<  (ret ? "True" : "False") << std::endl;
+    btree.TraveringTree(0);
+    std::cout << std::endl;
+    btree.TraveringTree(1);
+    std::cout << std::endl;
+    btree.TraveringTree(2);
+    std::cout << std::endl;
+    btree.TraveringTree(3);
+    std::cout << std::endl;
+    btree.Destroy();
+
+}
+
 int main(void)
 {
-    TestString();
+    TestBtree();
+    //TestString();
     //TestQueue();
     //TestStack();
     //TestList();

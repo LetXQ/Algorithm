@@ -20,9 +20,9 @@ namespace AlgorithmFunc
 */
 void GetCartPro(const int_vec_vec_t& src_data, int_vec_vec_t& res_data, int layer, int_vec_t& cur_data)
 {
-    if (layer < src_data.size() - 1)
+    if (layer < (int)src_data.size() - 1)
     {
-        for (int i = 0; i < src_data[layer].size(); ++i)
+        for (size_t i = 0; i < src_data[layer].size(); ++i)
         {
             int_vec_t tmp{cur_data};
             tmp.push_back(src_data[layer][i]);
@@ -30,9 +30,9 @@ void GetCartPro(const int_vec_vec_t& src_data, int_vec_vec_t& res_data, int laye
             GetCartPro(src_data, res_data, layer + 1, tmp);
         }
     }
-    else if (layer == src_data.size() - 1)
+    else if (layer == (int)src_data.size() - 1)
     {
-        for (int i = 0; i < src_data[layer].size(); ++i)
+        for (size_t i = 0; i < src_data[layer].size(); ++i)
         {
             cur_data.push_back(src_data[layer][i]);
             res_data.push_back(cur_data);
@@ -128,7 +128,7 @@ void OutputAllCombine(int n)
 
 void OutputAllCombine(int* arr, int nLen, int m)
 {
-    auto tmp_arr = new int[m];
+    //auto tmp_arr = new int[m];
 }
 
 void GetCombine(int cur_size, int_vec_vec_t& in_vec)
