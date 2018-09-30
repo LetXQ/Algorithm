@@ -8,6 +8,7 @@
 #include "list/queue.h"
 #include "list/character.h"
 #include "list/btree.h"
+#include "sort_heap.h"
 
 using namespace std;
 
@@ -151,9 +152,21 @@ void TestBtree()
 
 }
 
+void TestHeapSort()
+{
+	std::vector<int> data{9,4,1, 5,3,2,7,8,6};
+	HeapSort::HeapSortUp(data);
+	for (auto& elem : data)
+	{
+		std::cout << elem << " ";
+	}
+	std::cout << std::endl;
+}
+
 int main(void)
 {
-    TestBtree();
+	TestHeapSort();
+    //TestBtree();
     //TestString();
     //TestQueue();
     //TestStack();
