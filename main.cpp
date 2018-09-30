@@ -161,6 +161,13 @@ void TestHeapSort()
 		std::cout << elem << " ";
 	}
 	std::cout << std::endl;
+	std::vector<int> data1{9,4,1, 5,3,2,7,8,6};
+	HeapSort::HeapSortDown(data1);
+	for (auto& elem : data1)
+	{
+		std::cout << elem << " ";
+	}
+	std::cout << std::endl;
 }
 
 int main(void)

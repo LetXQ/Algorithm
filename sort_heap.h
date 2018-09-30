@@ -8,6 +8,7 @@ class HeapSort
 {
 public:
     /*
+     * https://blog.csdn.net/lzuacm/article/details/52853194
      * 不减的堆排序
      * 1，先构建一个大顶堆（父节点的元素大于子节点）
      * 2，构建完大顶堆后，根节点的元素肯定是数组里最大的元素
@@ -23,6 +24,21 @@ public:
         {
             CommonSwap<int>(data_vec[0], data_vec[i]);
             MaxHeapAdjust(data_vec, 0, i);
+        }
+    }
+
+    /*
+     * https://www.cnblogs.com/skywang12345/p/3602162.html
+     * 不增序列
+    */
+    static void HeapSortDown(int_vec_t& data_vec)
+    {
+        InitMinHeap(data_vec);
+
+        for (int i = int(data_vec.size()) - 1; i >= 1; --i)
+        {
+            CommonSwap<int>(data_vec[0], data_vec[i]);
+            MinHeapAdjust(data_vec, 0, i - 1);
         }
     }
 
@@ -61,6 +77,41 @@ private:
             CommonSwap<int>(data_vec[maxIdx], data_vec[index]);
             // 递归调整其他不满足堆性质的部分
             MaxHeapAdjust(data_vec, maxIdx, len);
+        }
+    }
+
+    /*
+     * 初始化一个小顶堆
+    */
+    static void InitMinHeap(int_vec_t& data_vec)
+    {
+        int len = int(data_vec.size());
+        for (int i = len / 2 - 1; i >= 0; --i )
+        {
+            MinHeapAdjust(data_vec, i, len - 1);
+        }
+    }
+
+    static void MinHeapAdjust(int_vec_t& data_vec, int start, int end)
+    {
+        int cur = start;
+        int left = 2 * start + 1;
+        int tmp = data_vec[cur];
+
+        for (; left <= end; cur = left, left = 2 * left + 1)
+        {
+            if (left < end && data_vec[left] > data_vec[left + 1])
+            {
+                ++left;
+            }
+
+            if (tmp <= data_vec[left])
+                break;
+            else
+            {
+                data_vec[cur] = data_vec[left];
+                data_vec[left] = tmp;
+            }
         }
     }
 };
