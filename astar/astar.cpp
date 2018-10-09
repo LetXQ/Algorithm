@@ -3,6 +3,7 @@
 #include "astar.h"
 #include "grid.h"
 
+// A*代价估算
 namespace  AStarHeuristic
 {
  constexpr int IStraightCost = 10;
@@ -62,6 +63,7 @@ int AStar::FindPath(const Point &start_pos, const Point &end_pos, NodeItemPtrLis
         auto surround_node = GetSurroundNode(cur_node, isIgnoreCorner);
         for (auto& elem : surround_node)
         {
+            // 不在开启列表中，则添加到开启列表
             if (!IsInList(elem))
             {
                 NodeItem* new_node = GetNodeFromCache();

@@ -29,8 +29,8 @@ struct NodeItem
 
     int FCost() const;
     int node_type = 0;
-    int g_cost = 0;
-    int h_cost = 0;
+    int g_cost = 0; // 表示从起点 A 移动到网格上指定方格的移动耗费 (可沿斜方向移动).
+    int h_cost = 0; // 表示从指定的方格移动到终点 B 的预计耗费 (H 有很多计算方法, 本文代码使用简单的欧几里得距离计算方法)
     Point pos;
     NodeItem* parent = nullptr;
 };
