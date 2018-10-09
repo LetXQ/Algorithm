@@ -18,8 +18,8 @@ namespace  AStarHeuristic
   //用简单的欧几里得距离计算H
  int CalcH(const NodeItem& cur_item, const NodeItem& next_item)
  {
-     int dx = std::abs(cur_item.pos.x - next_item.pos.x);
-     int dy = std::abs(cur_item.pos.y - next_item.pos.y);
+     int dx = cur_item.pos.x - next_item.pos.x;
+     int dy = cur_item.pos.y - next_item.pos.y;
 
      return std::sqrt(dx * dx + dy * dy) * IStraightCost;
  }
@@ -35,7 +35,7 @@ bool AStar::GetPath(const Point &start_pos, const Point &end_pos, NodeItemPtrLis
 {
     int ret = FindPath(start_pos, end_pos, path, isIgnoreCorner);
 
-    //this->reset();
+    this->reset();
     return 0 == ret;
 }
 
@@ -86,13 +86,12 @@ int AStar::FindPath(const Point &start_pos, const Point &end_pos, NodeItemPtrLis
             auto path_node = IsInList(end_item);
             if (path_node)
             {
-                 //std::cout << "find end: x " << end_item.pos.x << std::endl;
                  while (path_node)
                  {
                      path.push_front(path_node);
                      path_node = path_node->parent;
                  }
-                 //return 0;
+                 return 0;
             }
         }
 
@@ -125,11 +124,6 @@ NodeItemList AStar::GetSurroundNode(const NodeItem *cur_item, bool isIgnoreCorne
             if (IsCanReach(*cur_item, NodeItem(x, y), isIgnoreCorner))
             {
                 surround_nodes.push_back(NodeItem(x, y));
-//                std::cout << "GetSurroundNode +++++++++ : x " << x << ", y " << y << std::endl;
-            }
-            else
-            {
-//                std::cout << "GetSurroundNode ---------- : x " << x << ", y " << y << std::endl;
             }
         }
     }
@@ -169,7 +163,6 @@ NodeItem* AStar::IsInList(const NodeItem &item, bool bOpen)
     {
         for (auto& elem : m_pOpenList)
         {
-            std::cout << "size: " << m_pOpenList.size() << ", x: " << elem->pos.x  << ", item x: " << item.pos.x << std::endl;
             if (item.pos.x == elem->pos.x && item.pos.y == elem->pos.y)
                 return elem;
         }

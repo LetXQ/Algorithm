@@ -16,13 +16,17 @@ int main()
         {1,1,1,0,0,0,0,0,1,1,0,1},
         {1,1,0,1,0,0,0,0,0,0,0,1},
         {1,0,1,0,0,0,0,1,0,0,0,1},
+        {1,0,1,0,0,0,0,1,0,0,0,1},
+        {1,0,1,0,0,0,0,1,0,0,0,1},
+        {1,0,1,0,0,0,0,1,0,0,0,1},
+        {1,0,1,0,0,0,0,1,0,0,0,1},
         {1,1,1,1,1,1,1,1,1,1,1,1}
     };
-    Grid::Instance().Init(8,12, maze);
+    Grid::Instance().Init(12,12, maze);
 
     //设置起始和结束点
     Point start(1,1);
-    Point end(6,10);
+    Point end(10,10);
     //A*算法找寻路径
     NodeItemPtrList path;
     bool ret =AStar::Instance().GetPath(start,end, path, false);
