@@ -9,6 +9,7 @@
 #include "list/character.h"
 #include "list/btree.h"
 #include "sort_heap.h"
+#include "precision_string.h"
 
 using namespace std;
 
@@ -172,7 +173,8 @@ void TestHeapSort()
 
 int main(void)
 {
-	TestHeapSort();
+	TestGetStringOfPrecision();
+	//TestHeapSort();
     //TestBtree();
     //TestString();
     //TestQueue();
